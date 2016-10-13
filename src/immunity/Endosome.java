@@ -1,6 +1,8 @@
 package immunity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import repast.simphony.context.Context;
@@ -14,7 +16,6 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
 import repast.simphony.valueLayer.GridValueLayer;
-
 
 public class Endosome {
 	// globals
@@ -30,25 +31,28 @@ public class Endosome {
 	public double heading = 0; // initial value, but should change
 	ArrayList<Element> areaElement = new ArrayList<Element>();
 	ArrayList<Element> volumeElement = new ArrayList<Element>();
-	public class Element {
-		double proportion;
-		String type;
-		public Element(float pr, String t) {
-			this.proportion = pr;
-			this.type = t;
-		}
-	}
 	// constructor 1 (without parameters)
 	public	Endosome () {
 		Element e = new Element(0.5f, "Rab1");
 		this.areaElement.add(e );
 	}
 	
+	
+	HashMap<String, Float> rabCompatibility = new HashMap<String, Float>();
+	
+	
+	
 	// constructor 2 with a grid and space (does not work)
-	public	Endosome (ContinuousSpace<Object> sp, Grid<Object> gr) {
+	public	Endosome (ContinuousSpace<Object> sp, Grid<Object> gr, ArrayList<Element> rabs) {
 		this.space = sp;
 		this.grid = gr;
-				}
+		this.areaElement = rabs;
+		rabCompatibility.put("AA", 1.0f);
+		rabCompatibility.put("AB", 0.1f);
+		rabCompatibility.put("BB", 1.0f);
+		// TODO: agregar todas las combinaciones
+	}
+	
 	
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step() {
@@ -62,14 +66,49 @@ public class Endosome {
 		 double size = rsphere  * 10d; // cellscale ;calculate size proportional to volume (radius of sphere with this volume)
 	return size;
 	}
+	
+	private float getCompatibility(String rabX, String rabY) {
+		
+		try {
+			if(rabCompatibility.containsKey(rabX+rabY)) {
+				return rabCompatibility.get(rabX+rabY);
+			} else {
+				return rabCompatibility.get(rabY+rabX);
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	private boolean compatibles(Endosome endosome, Endosome obj) {
+		float sum = 0;
+		for (Element element : endosome.areaElement) {
+			for (Element element2 : obj.areaElement) {
+				float comp = getCompatibility(element.type, element2.type) * element.proportion * element2.proportion;
+				sum += comp;
+			}
+		}
+		return Math.random() < sum;
+	}
+	
 	public void fusion() {
 		GridPoint pt = grid.getLocation(this);
 		List<Endosome> endosomes_to_delete = new ArrayList<Endosome>();
 		for (Object obj : grid.getObjectsAt(pt.getX(), pt.getY())) {
-			if (obj instanceof Endosome && obj != this) {
-				endosomes_to_delete.add((Endosome) obj);
+			if (obj instanceof Endosome && obj != this ) {
+				if( compatibles(this, (Endosome) obj) ) {
+					
+				
+				
+					endosomes_to_delete.add((Endosome) obj);
+				}
 			}
 		}
+		
+		
+		
 		  System.out.println("this Volume and Area");	 
 		  System.out.println(this.volume);	 
 		  System.out.println(this.area);
@@ -84,6 +123,9 @@ public class Endosome {
 		}
 	}
 	
+
+
+
 	public void moveTowards() {
 		// only move if we are not already in this grid location
 
