@@ -1,6 +1,8 @@
 package immunity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.COPASI.CCompartment;
 import org.COPASI.CCopasiDataModel;
@@ -31,6 +33,7 @@ public class RabConversion {
     private CReportDefinition report;
     private CTrajectoryTask trajectoryTask;
 	private HashMap<String, CMetab> nameMetabs = new HashMap<String, CMetab>();
+	//private Endosome Endosome;
 	
 	public static RabConversion getInstance () {
 		if (instance == null) {
@@ -88,8 +91,13 @@ public class RabConversion {
             nameMetabs.put(metab.getObjectName(), metab);
             System.out.println(metab.getObjectName());
         }
-        
-   //     setInitialConcentration("IL6", 4.0);
+        // SET INITIAL CONCENTRATIONS
+        // SET INITIAL CONCENTRATIONS
+        // SET INITIAL CONCENTRATIONS
+        // SET INITIAL CONCENTRATIONS
+        //Endosome endosome = Endosome.getEndosome();
+        //setInitialConcentration("RabA", 0);//
+        //setInitialConcentration("RabB", 0);
         
         for (String s : nameMetabs.keySet()) {
         	CMetab metab = nameMetabs.get(s);
@@ -190,8 +198,8 @@ public class RabConversion {
 
         // set the report for the task
         trajectoryTask.getReport().setReportDefinition(report);
-        // set the output filename
-        trajectoryTask.getReport().setTarget("cd4TimeCourse.txt");
+        // set the output filename.  The file is in workspace/immunity
+        trajectoryTask.getReport().setTarget("intracellularTransportTimeCourse.txt");
         // don't append output if the file exists, but overwrite the file
         trajectoryTask.getReport().setAppend(false);
         
@@ -199,11 +207,11 @@ public class RabConversion {
         CTrajectoryProblem problem = (CTrajectoryProblem)trajectoryTask.getProblem();
 
         // simulate 600 steps
-        problem.setStepNumber(4000);
+        problem.setStepNumber(400);
         // start at time 0
         dataModel.getModel().setInitialTime(0.0);
         // simulate a duration of 60 time units
-        problem.setDuration(4000);
+        problem.setDuration(400);
         // tell the problem to actually generate time series data
         problem.setTimeSeriesRequested(true);
 
@@ -225,9 +233,7 @@ public class RabConversion {
 			m.refreshInitialValue();
 		}
 	}
-	
-	
-	
+		
 	public void runTimeCourse() {
 		// reapply the initial values
 		model.applyInitialValues();
@@ -318,8 +324,12 @@ public class RabConversion {
 			CMetab m = nameMetabs.get(name);
 			d = m.getConcentration();
 		}
-		
+		//System.out.println("COPASI       "+ name + d);
 		return d;
 	}
-
+	public Set<String> getMetabolites(){
+		Set<String> metabolites =  nameMetabs.keySet();
+		return metabolites;
+	}
+	
 }
