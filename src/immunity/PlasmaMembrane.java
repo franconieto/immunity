@@ -14,7 +14,15 @@ import repast.simphony.util.ContextUtils;
 public class PlasmaMembrane {
 	private static ContinuousSpace<Object> space;
 	private static Grid<Object> grid;
+	double scale = CellProperties.getInstance().getCellK().get("orgScale");
+/*	PM SUPERFICIE Y CELL VOLUME
+	Considerando que la superficie de la PM es de 750 nm X el alto.  Qué alto considero??
+	Puede ser 200 nm.  Para 200 me queda 150.000 ( o sea la superficie de 30 endosomas)
 
+	Para la Cell, el volumen sería de 750x750x200= 112.500.000.  Otro modo es considerar que los endosomas ocupan 1% del volumen y que el citosol ocupa un 50% del volumen celular.  Con ello, la suma de los volúmenes de los endosomas en este sistema es de aproximadamente 2 millones.  SI esto es el 1%, entonces corresponden a un volumen celular de 200 millones.  De estos el 50% es citosol, que deja una estimación de 100 millones. 
+	Entonces voy a considerar el cell.volume = 100x10^6 nm3*/
+
+	public double area = 150000/scale;//750x200 nm2
 	// a single Cell is created
 	private static PlasmaMembrane instance;
 	static {

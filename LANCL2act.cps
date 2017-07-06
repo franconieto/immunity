@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.15 (Build 95) (http://www.copasi.org) at 2017-06-26 20:34:24 UTC -->
+<!-- generated with COPASI 4.15 (Build 95) (http://www.copasi.org) at 2017-07-05 21:23:10 UTC -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="15" versionDevel="95" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -28,7 +28,7 @@ Reaction scheme where the products are created from the reactants and the change
       </ListOfParameterDescriptions>
     </Function>
   </ListOfFunctions>
-  <Model key="Model_3" name="LANCL2Activation" simulationType="time" timeUnit="s" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.02214179e+023">
+  <Model key="Model_3" name="LANCL2Activation" simulationType="time" timeUnit="s" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mmol" type="deterministic" avogadroConstant="6.02214179e+023">
     <MiriamAnnotation>
 <rdf:RDF
    xmlns:dcterms="http://purl.org/dc/terms/"
@@ -993,7 +993,7 @@ Reaction scheme where the products are created from the reactants and the change
           <Product metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4992" name="k1" value="1"/>
+          <Constant key="Parameter_4992" name="k1" value="0.004"/>
         </ListOfConstants>
         <KineticLaw function="Function_13">
           <ListOfCallParameters>
@@ -1026,7 +1026,7 @@ Reaction scheme where the products are created from the reactants and the change
           <Product metabolite="Metabolite_5" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4991" name="k1" value="0.1"/>
+          <Constant key="Parameter_4991" name="k1" value="0.004"/>
         </ListOfConstants>
         <KineticLaw function="Function_13">
           <ListOfCallParameters>
@@ -1046,21 +1046,21 @@ Reaction scheme where the products are created from the reactants and the change
           <ModelParameter cn="CN=Root,Model=LANCL2Activation" value="0" type="Model" simulationType="time"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Compartment Sizes" type="Group">
-          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default]" value="1" type="Compartment" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default]" value="1e-015" type="Compartment" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Species Values" type="Group">
-          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[LANCL2]" value="6.02214179e+026" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[ABA]" value="6.02214179e+024" type="Species" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[pLANCL2]" value="6.02214179e+025" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[LANCL2]" value="0" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[ABA]" value="6022141.790000008" type="Species" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Compartments[default],Vector=Metabolites[pLANCL2]" value="602214.1790000001" type="Species" simulationType="reactions"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Global Quantities" type="Group">
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
           <ModelParameterGroup cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2 activation]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2 activation],ParameterGroup=Parameters,Parameter=k1" value="1" type="ReactionParameter" simulationType="fixed"/>
+            <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2 activation],ParameterGroup=Parameters,Parameter=k1" value="0.004" type="ReactionParameter" simulationType="fixed"/>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2inactivation]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2inactivation],ParameterGroup=Parameters,Parameter=k1" value="0.1" type="ReactionParameter" simulationType="fixed"/>
+            <ModelParameter cn="CN=Root,Model=LANCL2Activation,Vector=Reactions[LANCL2inactivation],ParameterGroup=Parameters,Parameter=k1" value="0.004" type="ReactionParameter" simulationType="fixed"/>
           </ModelParameterGroup>
         </ModelParameterGroup>
       </ModelParameterSet>
@@ -1073,7 +1073,7 @@ Reaction scheme where the products are created from the reactants and the change
       <StateTemplateVariable objectReference="Compartment_1"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 6.02214179e+026 6.02214179e+025 6.02214179e+024 1 
+      0 0 602214.1790000001 6022141.790000008 1e-015 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -1097,9 +1097,9 @@ Reaction scheme where the products are created from the reactants and the change
     </Task>
     <Task key="Task_15" name="Time-Course" type="timeCourse" scheduled="false" updateModel="false">
       <Problem>
-        <Parameter name="StepNumber" type="unsignedInteger" value="80"/>
-        <Parameter name="StepSize" type="float" value="1.25"/>
-        <Parameter name="Duration" type="float" value="100"/>
+        <Parameter name="StepNumber" type="unsignedInteger" value="10"/>
+        <Parameter name="StepSize" type="float" value="1.5"/>
+        <Parameter name="Duration" type="float" value="15"/>
         <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
         <Parameter name="OutputStartTime" type="float" value="0"/>
         <Parameter name="Output Event" type="bool" value="0"/>

@@ -95,7 +95,7 @@ public class EndosomeMove {
 				space.moveTo(endosome, xpt, ypt);
 				grid.moveTo(endosome, (int) xpt, (int) ypt);
 //				Changes the speed to a standard speed in MT independet of size
-				endosome.speed = 1d*Cell.orgScale;
+				endosome.speed = 1d*Cell.orgScale;//in a MT, an organelle moves 15 nm/tick
 				// if (initial - heading > 90)System.out.println("GIRO MT "
 				// +initial+"  "+heading);
 				return endosome.heading;

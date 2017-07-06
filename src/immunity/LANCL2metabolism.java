@@ -207,11 +207,11 @@ public class LANCL2metabolism {
         CTrajectoryProblem problem = (CTrajectoryProblem)trajectoryTask.getProblem();
 
         // simulate 600 steps
-        problem.setStepNumber(400);
+        problem.setStepNumber(10);
         // start at time 0
         dataModel.getModel().setInitialTime(0.0);
         // simulate a duration of 60 time units
-        problem.setDuration(400);
+        problem.setDuration(15);
         // tell the problem to actually generate time series data
         problem.setTimeSeriesRequested(true);
 

@@ -1,6 +1,26 @@
 package immunity;
 
-
+import org.COPASI.CCompartment;
+import org.COPASI.CCopasiDataModel;
+import org.COPASI.CCopasiMessage;
+import org.COPASI.CCopasiMethod;
+import org.COPASI.CCopasiObjectName;
+import org.COPASI.CCopasiParameter;
+import org.COPASI.CCopasiReportSeparator;
+import org.COPASI.CCopasiRootContainer;
+import org.COPASI.CCopasiStaticString;
+import org.COPASI.CCopasiTask;
+import org.COPASI.CMetab;
+import org.COPASI.CModel;
+import org.COPASI.CModelEntity;
+import org.COPASI.CReaction;
+import org.COPASI.CRegisteredObjectName;
+import org.COPASI.CReportDefinition;
+import org.COPASI.CReportDefinitionVector;
+import org.COPASI.CTrajectoryMethod;
+import org.COPASI.CTrajectoryProblem;
+import org.COPASI.CTrajectoryTask;
+import org.COPASI.ReportItemVector;
 
 
 import static org.junit.Assert.*;
