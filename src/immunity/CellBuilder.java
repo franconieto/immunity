@@ -1,10 +1,8 @@
 package immunity;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +13,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import au.com.bytecode.opencsv.CSVReader;
+
 //import immunity.Element;
 import repast.simphony.context.Context;
-import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactory;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
 import repast.simphony.context.space.graph.NetworkBuilder;
@@ -28,7 +26,6 @@ import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.parameter.Parameters;
-import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.continuous.RandomCartesianAdder;
@@ -234,7 +231,17 @@ public class CellBuilder implements ContextBuilder<Object> {
 		// Double>();
 		// HashMap<String, Double> solubleContent = new HashMap<String,
 		// Double>();
+		
 		CellProperties cellProperties = CellProperties.getInstance();
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			CellProperties config = objectMapper.readValue(new File(CellProperties.configFilename), CellProperties.class);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		// InitialOrganelles InOr = InitialOrganelles.getInstance();
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();

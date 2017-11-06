@@ -1,11 +1,17 @@
 package immunity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class CellProperties {
+	
+	public CellProperties() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public static final String configFilename = "config.json";
+	
 	private static CellProperties instance;
 	
 	public static CellProperties getInstance() {

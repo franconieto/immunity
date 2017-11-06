@@ -1,7 +1,6 @@
 package immunity;
 
 import java.util.HashMap;
-import java.util.List;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.continuous.ContinuousSpace;

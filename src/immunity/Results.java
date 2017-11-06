@@ -7,9 +7,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-
-
 import java.util.TreeMap;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
