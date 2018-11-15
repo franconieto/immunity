@@ -475,21 +475,37 @@ public class EndosomeSplitStep {
 		}
 
 		else {
-			List keys = new ArrayList(copyMap.keySet());
-			Collections.shuffle(keys);
-			while (rab == null) {
-				for (Object rab1 : keys) {
-//					System.out.println(rab1 + " "+ tubuleTropism);
-					if (Math.random() < CellProperties.getInstance().getTubuleTropism().get(rab1)) {
-						System.out.println(copyMap + "RabInTubeSelected" +
-						rab1);
-						return (String) rab1;
-					}
-				}
-			}
-		}
+			
+				
+				List<String> keys = new ArrayList(copyMap.keySet());
+				Collections.shuffle(keys);			
 
-		return null;
+//					Picks a Rab domain according to the relative "tubule tropism" of the Rab domains present
+//					Rabs with larger tubule tropism have more probability of being selected
+
+
+					double totalTubuleTropism = 0d;
+//					add all the tubule tropisms of the rab domains
+					for (String rab1 : keys) {
+						totalTubuleTropism = totalTubuleTropism + CellProperties.getInstance().getTubuleTropism().get(rab1);
+					}
+
+//	 				select a random number between 0 and total tubule tropism.  Notice that it can be zero
+					double rnd = Math.random() * totalTubuleTropism;
+					double tubuleTropism = 0d;
+//					select a rab domain with a probability proportional to its tubule tropism
+					for (String rab1 : keys){
+					tubuleTropism = tubuleTropism + CellProperties.getInstance().getTubuleTropism().get(rab1);
+						if (rnd <= tubuleTropism){
+							System.out.println(copyMap + " RabInTubeSelected " + rab1);
+							return rab1;
+						}
+					}
+
+				}
+				
+			return null;// never used
+
 	}
 
 }
