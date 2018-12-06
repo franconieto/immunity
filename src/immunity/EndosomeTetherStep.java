@@ -55,6 +55,10 @@ public class EndosomeTetherStep {
 				largest = end;
 			}
 		}
+//		Takes at random a membrane domain of the largest endosome.  Larger domains have larger probability of being selected
+//		if the domain is a Golgi domain, then tether probability is 1, else is 0.1
+		if (Math.random() > tetherProbability(largest)) return;
+		
 		// assign the speed and heading of the largest endosome to the gropu
 
 		for (Endosome end : endosomesToTether) {
@@ -65,5 +69,25 @@ public class EndosomeTetherStep {
 	//		EndosomeMove.moveTowards(end);
 		}
 	}
+//		Takes at random a membrane domain of the largest endosome.  
+//		Larger domains have larger probability of being selected
+		public static double tetherProbability(Endosome endosome) {
+//			Picks a Rab domain according to the relative area of the domains in the organelle
+//			More abundant Rabs have more probability of being selected
+//			Returns the moving properties on MT of this domain 
+			double rnd = Math.random();// select a random number
+			double mtd = 0d;
+//			Start adding the rabs domains present in the organelle until the value is larger than the random number selected
+			for (String rab : endosome.rabContent.keySet()) {
+				mtd = mtd + endosome.rabContent.get(rab) / endosome.area;
+				if (rnd <= mtd) {
+					String tetherRab = CellProperties.getInstance().rabOrganelle.get(rab);//   mtTropism.get(rab);
+					double tetherProbability = 0d;
+					if (tetherRab.contains("Golgi")) tetherProbability = 1d; else tetherProbability = 0.1;
+					return tetherProbability;
+				}
+			}
+			return 0;// never used
+		}
 	
 }

@@ -201,7 +201,7 @@ public class EndosomeMove {
 		return ;
 	}
 	public static double mtDirection(Endosome endosome) {
-//		Picks a Rab domainaccording to the relative area of the domains in the organelle
+//		Picks a Rab domain according to the relative area of the domains in the organelle
 //		More abundant Rabs have more probability of being selected
 //		Returns the moving properties on MT of this domain 
 		double rnd = Math.random();// select a random number

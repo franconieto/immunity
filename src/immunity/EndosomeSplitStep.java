@@ -254,7 +254,7 @@ public class EndosomeSplitStep {
 //		    System.out.println("Second root is:"+root2);
 		//}   
 		
-		if (Math.random()<0.9){// standard 0.9
+		if (Math.random()<0.1){// standard 0.9
 // high probability of forming a single vesicle.  SET TO 0.9
 			return new double[] {Cell.mincyl, 2 * Math.PI * Math.pow(Cell.rcyl, 3)};
 		}
